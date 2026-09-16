@@ -1,0 +1,41 @@
+/* ==============================
+   自定义样式
+   这个文件会被原样复制到 /css/custom.css
+   在 _config.butterfly.yml 的 inject.head 里通过 <link> 引入
+   ============================== */
+
+/* ---------- 毛玻璃卡片效果 ---------- */
+#recent-posts > .recent-post-item,
+#aside-content .card-widget,
+#footer {
+  background: rgba(255, 255, 255, 0.55) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+}
+
+[data-theme="dark"] #recent-posts > .recent-post-item,
+[data-theme="dark"] #aside-content .card-widget,
+[data-theme="dark"] #footer {
+  background: rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ---------- 自定义社交图标 ---------- */
+/* 把 <i> 变成 SVG 背景图，用来显示 Font Awesome 里没有的图标 */
+.social-icon i.bilibili-icon,
+.social-icon i.zhihu-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  vertical-align: -0.1em;
+}
+
+.social-icon i.bilibili-icon {
+  background-image: url('/img/bilibili.svg');
+}
+
+.social-icon i.zhihu-icon {
+  background-image: url('/img/zhihu.svg');
+}
