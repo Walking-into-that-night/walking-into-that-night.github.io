@@ -1,0 +1,33 @@
+.my-tools {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-box-shadow);
+}
+.my-tools-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--font-color);
+  margin-bottom: 12px;
+}
+.my-tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.my-tools-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  font-size: .9em;
+  transition: all .3s;
+}
+.my-tools-list a:hover {
+  transform: translateY(-2px);
+  opacity: .85;
+}
