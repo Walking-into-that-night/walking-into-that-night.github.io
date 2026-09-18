@@ -16,7 +16,7 @@
     '<div class="item-name">热力图 :</div>' +
     '<div class="item-count"><a href="/stats/" title="查看博客热力图">查看 →</a></div>'
   webinfo.appendChild(item)
-})()
+})();
 
 /* ---------- 2. 首页：常用工具模块 ---------- */
 
@@ -44,4 +44,4 @@
   html += '</div></div>'
 
   posts.insertAdjacentHTML('afterbegin', html)
-})()
+})();
