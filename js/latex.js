@@ -70,7 +70,9 @@
   }
 
   function fetchText (url) {
-    return fetch(url).then(function (res) {
+    // no-cache = 每次先向服务器校验（GitHub Pages 支持 ETag，没变就返回 304）。
+    // 否则 .tex 会被缓存十分钟，改了源码重新发布后访客看到的还是旧文档。
+    return fetch(url, { cache: 'no-cache' }).then(function (res) {
       if (!res.ok) throw new Error(url + ' 返回 HTTP ' + res.status)
       return res.text()
     })
