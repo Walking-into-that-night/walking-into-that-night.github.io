@@ -1,0 +1,58 @@
+/* ==============================
+   LaTeX.js 内嵌文档的容器样式
+   LaTeX 自身的排版样式由 LaTeX.js 的 CSS 提供（从 CDN 加载），
+   这里只负责容器、纸面观感和我们自建的表格。
+   ============================== */
+
+[data-latex-src] {
+  margin: 1.5rem 0;
+  /* LaTeX 的版面是定宽的，窄屏上允许横向滚动 */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+[data-latex-src].latex-loading {
+  padding: 1rem 0;
+  font-size: .95em;
+  color: var(--font-color);
+  opacity: .6;
+}
+
+[data-latex-src].latex-error {
+  font-size: .95em;
+  color: #c0392b;
+}
+
+/* 渲染出来的"纸面" */
+[data-latex-src] .latex-page {
+  padding: 1.2rem 1rem;
+  color: #000;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: var(--card-box-shadow);
+}
+
+/* ---------- 表格 ---------- */
+/* LaTeX.js 没有实现 tabular，这张表由脚本自己构建，
+   这里给出接近 LaTeX 的横线/竖线观感。 */
+
+.latex-tabular {
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 1em;
+  color: inherit;
+}
+
+.latex-tabular td {
+  padding: .25em .6em;
+}
+
+/* 行上方的 \hline */
+.latex-tabular tr.rule-above > td {
+  border-top: 1px solid currentColor;
+}
+
+/* 表格结尾的 \hline */
+.latex-tabular.rule-below > tbody > tr:last-child > td {
+  border-bottom: 1px solid currentColor;
+}
