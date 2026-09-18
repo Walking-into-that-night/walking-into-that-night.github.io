@@ -11,7 +11,7 @@
 \begin{abstract}
 This page is rendered live in your browser by \LaTeX.js, a \LaTeX{} to HTML5
 translator written in JavaScript. It shows a small but complete document:
-sections, lists, a table, mathematics, and typography.
+sections, lists, tables, figures, mathematics and footnotes.
 \end{abstract}
 
 \section{Introduction}
@@ -19,22 +19,20 @@ sections, lists, a table, mathematics, and typography.
 \LaTeX.js parses \LaTeX{} source and produces HTML together with a stylesheet
 that mimics the default \LaTeX{} output. Unlike a math-only renderer such as
 KaTeX or MathJax, it understands the document \emph{structure} as well:
-sections, lists, tables, and floating figures.
+sections, lists, tables, figures and cross references.
 
 The idea is simple. You write ordinary \LaTeX{}, and the result is a normal
 web page --- no \TeX{} installation, no build step on the server.
 
 \subsection{What this document covers}
 
-The constructs below are the ones you would normally reach for in a short
-report:
-
 \begin{itemize}
   \item sectioning: sections and subsections
   \item lists: both unordered and ordered
-  \item tables
-  \item mathematics: inline and displayed
-  \item typography: \textbf{bold}, \emph{emphasis}, \texttt{typewriter}
+  \item a table with a caption
+  \item a figure with an image and a caption
+  \item mathematics: inline, numbered equations and aligned equations
+  \item typography and footnotes
 \end{itemize}
 
 \section{Lists}
@@ -49,42 +47,59 @@ An ordered list behaves as expected:
 
 \section{Tables}
 
-\begin{center}
-\begin{tabular}{|l|c|r|}
-\hline
-Project & Kind & Bundle size \\
-\hline
-\LaTeX.js & full document & 593 KB \\
-KaTeX & math only & 280 KB \\
-MathJax & math only & 1.1 MB \\
-\hline
-\end{tabular}
-\end{center}
-
-The table above lists three projects that translate \LaTeX{} for the web,
-together with what each of them is able to handle.
+\begin{table}
+  \centering
+  \caption{Three projects that translate \LaTeX{} for the web.}
+  \begin{tabular}{|l|c|r|}
+  \hline
+  Project & Kind & Bundle size \\
+  \hline
+  \LaTeX.js & full document & 593 KB \\
+  KaTeX & math only & 280 KB \\
+  MathJax & math only & 1.1 MB \\
+  \hline
+  \end{tabular}
+\end{table}
 
 \section{Mathematics}
 
 Inline mathematics sits in the flow of a sentence: for instance
-$\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$ is the familiar closed form.
+$\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$ is the familiar closed form. A numbered
+equation is set on its own line and labelled on the right:
 
-A displayed equation is set on its own line:
-
-$$
+\begin{equation}
   \int_{0}^{1} x^{2} \, dx = \frac{1}{3}
-$$
+\end{equation}
 
-Subscripts and superscripts compose naturally, as in
-$a^{2} + b^{2} = c^{2}$, and Greek letters such as $\alpha$, $\beta$ and
-$\gamma$ are available.
+Several lines can be aligned on a common symbol:
+
+\begin{align}
+  (a + b)^{2} &= a^{2} + 2ab + b^{2} \\
+  (a - b)^{2} &= a^{2} - 2ab + b^{2}
+\end{align}
+
+Subscripts and superscripts compose naturally, as in $a^{2} + b^{2} = c^{2}$,
+and Greek letters such as $\alpha$, $\beta$ and $\gamma$ are available.
+
+\section{Figures}
+
+Images are included with \texttt{includegraphics} and floated with a caption.
+The width can be given in any familiar unit:
+
+\begin{figure}
+  \centering
+  \includegraphics[width=8cm]{/img/stars.png}
+  \caption{A figure placed with its own caption.}
+\end{figure}
 
 \section{Typography}
 
 The Computer Modern fonts are shipped with the renderer, so the output really
 does look like a \LaTeX{} document rather than a web page pretending to be
-one. Ligatures, spacing and the shape of the letters all come from the same
-typefaces \TeX{} uses.
+one\footnote{This is a footnote. In print it would sit at the bottom of the
+page; on the web it is collected at the end of the document.}. Ligatures,
+spacing and the shape of the letters all come from the same typefaces \TeX{}
+uses.
 
 \section{Conclusion}
 

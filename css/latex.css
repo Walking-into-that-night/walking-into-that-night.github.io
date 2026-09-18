@@ -56,3 +56,68 @@
 .latex-tabular.rule-below > tbody > tr:last-child > td {
   border-bottom: 1px solid currentColor;
 }
+
+/* ---------- 编号公式 ---------- */
+.latex-displaymath {
+  position: relative;
+  padding-right: 3em;
+  margin: 1em 0;
+}
+
+.latex-displaymath .latex-eqno {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+/* ---------- 浮动体（figure / table） ---------- */
+.latex-float {
+  margin: 1.2em 0;
+  text-align: center;
+}
+
+.latex-float .latex-tabular {
+  margin: 0 auto;
+}
+
+.latex-caption {
+  margin-top: .6em;
+  font-size: .95em;
+  text-align: center;
+}
+
+.latex-caption-label {
+  font-weight: bold;
+}
+
+/* ---------- 图片 ---------- */
+.latex-img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+/* ---------- 脚注 ---------- */
+.latex-footnote-ref {
+  font-size: .72em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+.latex-footnotes {
+  margin-top: 1.6em;
+  padding-top: .6em;
+  border-top: 1px solid currentColor;
+  font-size: .85em;
+}
+
+.latex-footnote-item {
+  margin: .25em 0;
+}
+
+.latex-footnote-mark {
+  margin-right: .4em;
+  vertical-align: super;
+  font-size: .8em;
+}
