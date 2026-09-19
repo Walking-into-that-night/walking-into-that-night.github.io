@@ -19,9 +19,11 @@
       continue
     }
 
-    // 标签：默认指向 /tags/，但那个索引页没有做，改指到标签云页面
-    if (/tags\/?$/.test(href) || text === '标签') {
+    // 标签：指到标签云页面，并把名字改成"标签云"
+    if (/tags\/?$/.test(href) || text === '标签' ||
+        /\/TagCloud\/$/.test(href) || text === '标签云') {
       links[i].setAttribute('href', '/TagCloud/')
+      if (label) label.textContent = '标签云'
     }
   }
 })();
