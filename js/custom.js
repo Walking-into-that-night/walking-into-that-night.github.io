@@ -70,3 +70,12 @@
 
   posts.insertAdjacentHTML('afterbegin', html)
 })();
+
+/* ---------- 4. 导航栏左上角：站点名改成"首页" ---------- */
+/* 注意只改导航栏这一处。首屏大标题和浏览器标签页用的是 config.title，
+   改了会把它们也一起变掉，所以这里用脚本单独处理。 */
+
+(function () {
+  var brand = document.querySelector('#blog-info .site-name')
+  if (brand) brand.textContent = '首页'
+})();
