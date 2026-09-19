@@ -3,7 +3,23 @@
    通过 _config.butterfly.yml 的 inject.bottom 引入，每个页面都会加载
    ============================== */
 
-/* ---------- 1. 侧边栏"网站信息"卡片：加一个博客统计入口（所有页面生效） ---------- */
+/* ---------- 1. 侧边栏作者卡片：去掉"分类"一项（所有页面生效） ---------- */
+
+(function () {
+  var links = document.querySelectorAll('.site-data a')
+  for (var i = 0; i < links.length; i++) {
+    var href = links[i].getAttribute('href') || ''
+    var label = links[i].querySelector('.headline')
+    // 优先按链接地址判断；文字判断作为兜底
+    if (/categories\/?$/.test(href) ||
+        (label && label.textContent.trim() === '分类')) {
+      links[i].parentNode.removeChild(links[i])
+      // 不 break：侧边栏有一份，移动端菜单里还有一份，都要删
+    }
+  }
+})();
+
+/* ---------- 2. 侧边栏"网站信息"卡片：加一个博客统计入口（所有页面生效） ---------- */
 
 (function () {
   var webinfo = document.querySelector('.card-webinfo .webinfo')
@@ -18,7 +34,7 @@
   webinfo.appendChild(item)
 })();
 
-/* ---------- 2. 首页：常用工具模块 ---------- */
+/* ---------- 3. 首页：常用工具模块 ---------- */
 
 (function () {
   // 只在首页生效（归档页、文章页等一律跳过）
