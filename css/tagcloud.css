@@ -1,0 +1,60 @@
+/* ==============================
+   标签云页面样式
+   ============================== */
+
+.tagcloud-box {
+  position: relative;
+  margin: 1.2rem 0;
+  padding: 1rem;
+  height: 360px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: var(--card-box-shadow);
+  overflow: hidden;
+}
+
+/* wordcloud2.js 在普通元素里生成的就是这些 span */
+.tagcloud-box > span {
+  cursor: pointer;
+  transition: opacity .2s ease, text-shadow .2s ease;
+}
+
+.tagcloud-box > span:hover {
+  opacity: .65;
+  text-shadow: 0 0 8px currentColor;
+}
+
+.tagcloud-note {
+  margin: 0;
+  padding: 1rem 0;
+  color: var(--font-color);
+  opacity: .7;
+}
+
+/* 退化成列表时的样式 */
+.tagcloud-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.tagcloud-list li {
+  display: inline-block;
+  margin: .25rem .5rem .25rem 0;
+}
+
+.tagcloud-list a {
+  color: var(--font-color);
+}
+
+.tagcloud-count {
+  margin-left: .25rem;
+  font-size: .8em;
+  opacity: .6;
+}
+
+@media (max-width: 768px) {
+  .tagcloud-box {
+    height: 280px;
+  }
+}

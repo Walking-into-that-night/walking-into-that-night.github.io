@@ -3,18 +3,25 @@
    通过 _config.butterfly.yml 的 inject.bottom 引入，每个页面都会加载
    ============================== */
 
-/* ---------- 1. 侧边栏作者卡片：去掉"分类"一项（所有页面生效） ---------- */
+/* ---------- 1. 侧边栏作者卡片：去掉"分类"，把"标签"指向标签云页面 ---------- */
 
 (function () {
   var links = document.querySelectorAll('.site-data a')
   for (var i = 0; i < links.length; i++) {
     var href = links[i].getAttribute('href') || ''
     var label = links[i].querySelector('.headline')
-    // 优先按链接地址判断；文字判断作为兜底
+    var text = label ? label.textContent.trim() : ''
+
+    // 分类：整项删掉（侧边栏一份、移动端菜单里还有一份）
     if (/categories\/?$/.test(href) ||
-        (label && label.textContent.trim() === '分类')) {
+        text === '分类') {
       links[i].parentNode.removeChild(links[i])
-      // 不 break：侧边栏有一份，移动端菜单里还有一份，都要删
+      continue
+    }
+
+    // 标签：默认指向 /tags/，但那个索引页没有做，改指到标签云页面
+    if (/tags\/?$/.test(href) || text === '标签') {
+      links[i].setAttribute('href', '/TagCloud/')
     }
   }
 })();
