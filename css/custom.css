@@ -39,3 +39,86 @@
 .social-icon i.zhihu-icon {
   background-image: url('/img/zhihu.svg');
 }
+
+/* ---------- 搜索弹层：做成和侧边栏卡片一致的样子 ---------- */
+
+.search-dialog {
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+  border-radius: 8px;
+  box-shadow: var(--card-box-shadow);
+}
+
+[data-theme="dark"] .search-dialog {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* 顶部一行：标题 + 关闭按钮 */
+.search-nav {
+  margin-bottom: 12px;
+}
+
+.search-dialog-title {
+  font-size: .82em;
+  font-weight: 600;
+  color: var(--font-color);
+}
+
+.search-close-button {
+  color: var(--font-color);
+  opacity: .5;
+}
+
+.search-close-button:hover {
+  color: var(--font-color);
+  opacity: 1;
+}
+
+/* 输入框：改成普通方角输入框，不再是胶囊形 */
+.local-search-input input {
+  padding: 8px 12px;
+  border: 1px solid var(--hr-border);
+  border-radius: 6px;
+  background: var(--global-bg);
+  color: var(--font-color);
+  transition: border-color .2s ease;
+}
+
+.local-search-input input:focus {
+  border-color: var(--default-bg-color);
+}
+
+.local-search-input input::placeholder {
+  color: var(--font-color);
+  opacity: .45;
+}
+
+/* 去掉输入框下面那条虚线和图标 */
+.search-dialog hr {
+  display: none;
+}
+
+/* 结果列表：干净的条目，悬停时整行淡淡高亮 */
+.search-result-list {
+  margin: 12px -20px 0;
+  padding: 0 20px;
+}
+
+.search-result-list .local-search-hit-item {
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background .2s ease;
+}
+
+.search-result-list .local-search-hit-item:hover {
+  background: rgba(127, 127, 127, .1);
+  transform: none;
+}
+
+/* 手机端搜索弹层是全屏的，不需要圆角 */
+@media (max-width: 768px) {
+  .search-dialog {
+    border-radius: 0;
+  }
+}
