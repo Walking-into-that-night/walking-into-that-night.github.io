@@ -172,7 +172,8 @@
 /* ---------- 首页大标题位置的手写动画 ---------- */
 
 .hero-hello {
-  width: min(78vw, 620px);
+  /* 原尺寸的 2/3：78vw→52vw，620px→413px */
+  width: min(52vw, 413px);
   margin: 0 auto 10px;
 }
 
