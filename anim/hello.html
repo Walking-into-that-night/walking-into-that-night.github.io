@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Liton's Blog | Liton's Blog</title><meta name="author" content="Liton"><meta name="copyright" content="Liton"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="hello. 一笔写成    body { margin: 0; min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 44px; background: #faf8f4; }   .stage { width: min(78vw, 640px); }   .stage svg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Liton&#39;s Blog">
+<meta property="og:url" content="https://walking-into-that-night.github.io/anim/hello.html">
+<meta property="og:site_name" content="Liton&#39;s Blog">
+<meta property="og:description" content="hello. 一笔写成    body { margin: 0; min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 44px; background: #faf8f4; }   .stage { width: min(78vw, 640px); }   .stage svg">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://walking-into-that-night.github.io/img/profile.jpg">
+<meta property="article:published_time" content="2026-09-20T19:33:04.866Z">
+<meta property="article:modified_time" content="2026-09-20T19:33:04.866Z">
+<meta property="article:author" content="Liton">
+<meta property="article:tag" content="Green hand">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://walking-into-that-night.github.io/img/profile.jpg"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/profile.jpg"><link rel="canonical" href="https://walking-into-that-night.github.io/anim/hello.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Liton\'s Blog',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/custom.css?v=5"><link rel="stylesheet" href="/css/tool.css"><link rel="preload" as="image" href="/img/background.webp"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/profile.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url(/img/darkmountain.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Liton's Blog</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title"></h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>hello. 一笔写成</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 44px; background: #faf8f4; }
+  .stage { width: min(78vw, 640px); }
+  .stage svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+</style>
+</head>
+<body>
+
+  <div class="stage" id="stage">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 879" fill="none" stroke="#333333" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M 30.00 639.00 C 32.58 639.96 40.79 643.07 45.50 644.75 C 50.21 646.43 54.67 647.85 58.25 649.06 C 61.83 650.27 65.54 651.51 67.00 652.00 C 68.46 652.49 57.33 654.67 67.00 652.00 C 76.67 649.33 94.50 662.83 125.00 636.00 C 155.50 609.17 226.59 524.83 250.00 491.00 C 273.41 457.17 260.26 450.72 265.44 433.00 C 270.61 415.28 276.16 399.25 281.06 384.69 C 285.97 370.12 290.77 358.22 294.88 345.62 C 298.98 333.03 302.54 321.75 305.69 309.12 C 308.83 296.50 311.61 283.71 313.75 269.88 C 315.89 256.04 317.67 240.97 318.50 226.12 C 319.33 211.28 319.42 194.96 318.75 180.81 C 318.08 166.67 316.49 152.66 314.50 141.25 C 312.51 129.84 309.88 120.53 306.81 112.38 C 303.75 104.22 300.40 98.10 296.12 92.31 C 291.85 86.52 287.23 81.75 281.19 77.62 C 275.15 73.50 267.80 70.05 259.88 67.56 C 251.95 65.07 242.09 63.50 233.62 62.69 C 225.16 61.88 216.23 62.06 209.06 62.69 C 201.90 63.31 196.12 64.52 190.62 66.44 C 185.12 68.35 180.72 70.83 176.06 74.19 C 171.41 77.54 166.80 81.78 162.69 86.56 C 158.57 91.34 154.66 96.71 151.38 102.88 C 148.09 109.04 145.39 112.24 143.00 123.56 C 140.61 134.89 138.56 144.19 137.06 170.81 C 135.56 197.44 134.34 239.70 134.00 283.31 C 133.66 326.93 134.29 391.05 135.00 432.50 C 135.71 473.95 137.53 509.36 138.25 532.00 C 138.97 554.64 139.57 558.69 139.31 568.31 C 139.05 577.94 137.97 582.21 136.69 589.75 C 135.41 597.29 133.57 606.02 131.62 613.56 C 129.68 621.10 126.10 631.26 125.00 635.00 C 123.90 638.74 124.33 624.67 125.00 636.00 C 125.67 647.33 128.00 674.00 129.00 703.00 C 130.00 732.00 128.67 834.67 131.00 810.00 C 133.33 785.33 136.56 599.55 143.00 555.00 C 149.44 510.45 160.83 547.09 169.62 542.69 C 178.42 538.28 187.66 533.45 195.75 528.56 C 203.84 523.68 211.55 518.05 218.19 513.38 C 224.82 508.70 230.26 504.23 235.56 500.50 C 240.86 496.77 247.59 492.42 250.00 491.00 C 252.41 489.58 247.26 491.40 250.00 492.00 C 252.74 492.60 259.25 493.62 266.44 494.62 C 273.62 495.62 283.75 496.64 293.12 498.00 C 302.50 499.36 314.18 500.92 322.69 502.81 C 331.20 504.71 338.25 506.81 344.19 509.38 C 350.12 511.94 354.05 514.76 358.31 518.19 C 362.57 521.61 366.18 525.21 369.75 529.94 C 373.32 534.67 376.68 539.77 379.75 546.56 C 382.82 553.35 385.74 561.17 388.19 570.69 C 390.64 580.21 392.76 591.05 394.44 603.69 C 396.11 616.32 397.09 631.26 398.25 646.50 C 399.41 661.74 399.99 679.67 401.38 695.12 C 402.76 710.58 404.29 726.41 406.56 739.25 C 408.83 752.09 411.82 763.10 415.00 772.19 C 418.18 781.27 421.69 788.03 425.62 793.75 C 429.56 799.47 433.40 803.11 438.62 806.50 C 443.85 809.89 449.90 812.12 457.00 814.06 C 464.10 816.00 472.61 817.48 481.25 818.12 C 489.89 818.77 499.08 818.89 508.81 817.94 C 518.54 816.99 528.96 815.06 539.62 812.44 C 550.29 809.81 562.31 805.91 572.81 802.19 C 583.31 798.47 593.76 794.29 602.62 790.12 C 611.49 785.96 618.77 781.88 626.00 777.19 C 633.23 772.50 639.83 764.53 646.00 762.00 C 652.17 759.47 657.04 764.76 663.00 762.00 C 668.96 759.24 675.77 750.43 681.75 745.44 C 687.73 740.45 692.90 736.69 698.88 732.06 C 704.85 727.44 710.97 723.12 717.62 717.69 C 724.28 712.25 731.99 705.75 738.81 699.44 C 745.64 693.12 752.64 686.27 758.56 679.81 C 764.49 673.35 769.74 667.01 774.38 660.69 C 779.01 654.36 782.95 648.25 786.38 641.88 C 789.80 635.50 792.68 629.62 794.94 622.44 C 797.20 615.25 799.01 607.77 799.94 598.75 C 800.86 589.73 801.16 578.56 800.50 568.31 C 799.84 558.06 798.22 546.32 796.00 537.25 C 793.78 528.18 790.66 520.29 787.19 513.88 C 783.72 507.46 779.67 502.94 775.19 498.75 C 770.71 494.56 766.07 491.42 760.31 488.75 C 754.55 486.08 748.24 484.01 740.62 482.75 C 733.01 481.49 723.49 480.93 714.62 481.19 C 705.76 481.45 695.50 482.67 687.44 484.31 C 679.38 485.96 672.32 488.29 666.25 491.06 C 660.18 493.83 655.72 497.05 651.00 500.94 C 646.28 504.82 642.01 509.41 637.94 514.38 C 633.86 519.34 629.94 524.71 626.56 530.75 C 623.19 536.79 620.26 543.07 617.69 550.62 C 615.11 558.18 612.85 566.82 611.12 576.06 C 609.40 585.30 607.94 595.73 607.31 606.06 C 606.69 616.40 606.70 627.38 607.38 638.06 C 608.05 648.75 609.68 660.07 611.38 670.19 C 613.07 680.30 615.40 690.14 617.56 698.75 C 619.73 707.36 621.74 714.64 624.38 721.88 C 627.01 729.11 629.77 735.50 633.38 742.19 C 636.98 748.88 641.06 758.53 646.00 762.00 C 650.94 765.47 658.06 760.12 663.00 763.00 C 667.94 765.88 671.30 774.00 675.62 779.25 C 679.95 784.50 683.64 789.92 688.94 794.50 C 694.24 799.08 700.03 803.31 707.44 806.75 C 714.84 810.19 724.09 813.00 733.38 815.12 C 742.66 817.25 752.93 818.80 763.12 819.50 C 773.32 820.20 783.91 820.06 794.56 819.31 C 805.22 818.56 816.85 816.86 827.06 815.00 C 837.27 813.14 847.09 810.81 855.81 808.12 C 864.53 805.44 871.71 802.49 879.38 798.88 C 887.04 795.26 894.24 790.90 901.81 786.44 C 909.39 781.98 916.53 776.88 924.81 772.12 C 933.09 767.38 941.47 762.62 951.50 757.94 C 961.53 753.25 978.42 759.82 985.00 744.00 C 991.58 728.18 984.75 679.06 991.00 663.00 C 997.25 646.94 1013.10 653.85 1022.50 647.62 C 1031.90 641.40 1039.29 635.64 1047.38 625.62 C 1055.46 615.61 1062.73 602.76 1071.00 587.56 C 1079.27 572.36 1088.65 553.02 1097.00 534.44 C 1105.35 515.85 1113.91 495.69 1121.12 476.06 C 1128.34 456.44 1134.78 436.83 1140.31 416.69 C 1145.84 396.54 1150.58 375.86 1154.31 355.19 C 1158.04 334.51 1160.85 312.72 1162.69 292.62 C 1164.52 272.53 1165.21 252.08 1165.31 234.62 C 1165.42 217.17 1164.54 201.51 1163.31 187.88 C 1162.08 174.24 1160.30 163.47 1157.94 152.81 C 1155.57 142.16 1152.70 132.95 1149.12 123.94 C 1145.55 114.93 1141.32 106.15 1136.50 98.75 C 1131.68 91.35 1126.49 84.68 1120.19 79.56 C 1113.89 74.45 1106.81 70.67 1098.69 68.06 C 1090.56 65.46 1080.48 64.24 1071.44 63.94 C 1062.40 63.64 1052.29 64.62 1044.44 66.25 C 1036.58 67.88 1029.97 70.54 1024.31 73.69 C 1018.66 76.83 1014.62 80.59 1010.50 85.12 C 1006.38 89.66 1002.97 94.69 999.56 100.88 C 996.16 107.06 992.96 114.29 990.06 122.25 C 987.17 130.21 984.45 139.14 982.19 148.62 C 979.93 158.11 978.05 166.22 976.50 179.19 C 974.95 192.16 973.79 203.75 972.88 226.44 C 971.96 249.12 971.32 279.48 971.00 315.31 C 970.68 351.15 970.56 401.12 970.94 441.44 C 971.31 481.75 972.02 526.14 973.25 557.19 C 974.48 588.24 976.59 609.86 978.31 627.75 C 980.03 645.64 982.34 652.78 983.56 664.50 C 984.78 676.22 985.39 684.98 985.62 698.06 C 985.86 711.15 985.10 735.34 985.00 743.00 C 984.90 750.66 983.19 741.61 985.00 744.00 C 986.81 746.39 992.45 752.88 995.88 757.31 C 999.30 761.75 1002.10 766.07 1005.56 770.62 C 1009.02 775.18 1012.49 780.05 1016.62 784.62 C 1020.76 789.20 1025.42 794.11 1030.38 798.06 C 1035.33 802.01 1040.29 805.47 1046.38 808.31 C 1052.46 811.16 1059.19 813.30 1066.88 815.12 C 1074.56 816.95 1083.41 818.50 1092.50 819.25 C 1101.59 820.00 1111.17 820.33 1121.44 819.62 C 1131.71 818.92 1143.04 817.28 1154.12 815.00 C 1165.21 812.72 1177.55 809.34 1187.94 805.94 C 1198.32 802.53 1208.15 798.42 1216.44 794.56 C 1224.73 790.71 1231.06 786.74 1237.69 782.81 C 1244.31 778.89 1249.06 775.10 1256.19 771.00 C 1263.31 766.90 1270.80 762.69 1280.44 758.19 C 1290.07 753.69 1307.24 760.03 1314.00 744.00 C 1320.76 727.97 1312.84 680.90 1321.00 662.00 C 1329.16 643.10 1350.12 642.94 1362.94 630.62 C 1375.75 618.31 1387.29 604.21 1397.88 588.12 C 1408.46 572.04 1417.65 552.95 1426.44 534.12 C 1435.23 515.30 1443.38 495.02 1450.62 475.19 C 1457.88 455.35 1464.39 435.30 1469.94 415.12 C 1475.49 394.95 1480.16 373.88 1483.94 354.12 C 1487.72 334.38 1490.58 313.99 1492.62 296.62 C 1494.67 279.26 1495.70 263.92 1496.19 249.94 C 1496.68 235.96 1496.26 224.60 1495.56 212.75 C 1494.86 200.90 1493.52 189.57 1492.00 178.81 C 1490.48 168.05 1488.54 157.41 1486.44 148.19 C 1484.33 138.97 1482.00 130.88 1479.38 123.50 C 1476.75 116.12 1473.90 109.86 1470.69 103.94 C 1467.48 98.01 1464.10 92.68 1460.12 87.94 C 1456.15 83.20 1452.30 78.95 1446.81 75.50 C 1441.32 72.05 1435.02 69.14 1427.19 67.25 C 1419.35 65.36 1408.98 64.26 1399.81 64.19 C 1390.65 64.11 1380.07 65.18 1372.19 66.81 C 1364.30 68.45 1357.92 71.00 1352.50 74.00 C 1347.08 77.00 1343.55 80.54 1339.69 84.81 C 1335.82 89.08 1332.57 93.89 1329.31 99.62 C 1326.05 105.36 1322.96 111.35 1320.12 119.25 C 1317.29 127.15 1314.65 132.54 1312.31 147.00 C 1309.98 161.46 1307.76 175.36 1306.12 206.00 C 1304.49 236.64 1303.03 282.86 1302.50 330.81 C 1301.97 378.76 1302.08 446.89 1302.94 493.69 C 1303.79 540.49 1305.96 583.23 1307.62 611.62 C 1309.29 640.02 1311.73 649.50 1312.94 664.06 C 1314.15 678.62 1314.70 685.68 1314.88 699.00 C 1315.05 712.32 1314.15 736.50 1314.00 744.00 C 1313.85 751.50 1312.15 741.74 1314.00 744.00 C 1315.85 746.26 1321.57 753.02 1325.12 757.56 C 1328.68 762.10 1331.53 766.50 1335.31 771.25 C 1339.09 776.00 1343.05 781.19 1347.81 786.06 C 1352.57 790.94 1358.30 796.35 1363.88 800.50 C 1369.45 804.65 1375.04 808.22 1381.25 810.94 C 1387.46 813.66 1393.72 815.36 1401.12 816.81 C 1408.53 818.26 1417.18 819.17 1425.69 819.62 C 1434.20 820.08 1443.69 820.05 1452.19 819.56 C 1460.69 819.07 1468.72 818.22 1476.69 816.69 C 1484.66 815.16 1491.83 813.33 1500.00 810.38 C 1508.17 807.42 1516.96 803.48 1525.69 798.94 C 1534.42 794.40 1543.80 788.69 1552.38 783.12 C 1560.95 777.56 1568.68 771.15 1577.12 765.56 C 1585.57 759.98 1594.04 753.46 1603.06 749.62 C 1612.08 745.79 1622.38 742.48 1631.25 742.56 C 1640.12 742.65 1648.75 745.90 1656.31 750.12 C 1663.88 754.35 1670.00 761.84 1676.62 767.94 C 1683.25 774.03 1689.06 781.09 1696.06 786.69 C 1703.06 792.28 1710.21 797.29 1718.62 801.50 C 1727.04 805.71 1736.74 809.22 1746.56 811.94 C 1756.39 814.66 1767.30 816.76 1777.56 817.81 C 1787.82 818.86 1798.03 819.04 1808.12 818.25 C 1818.22 817.46 1828.49 815.59 1838.12 813.06 C 1847.76 810.53 1857.46 807.11 1865.94 803.06 C 1874.42 799.01 1882.00 794.24 1889.00 788.75 C 1896.00 783.26 1902.21 776.96 1907.94 770.12 C 1913.67 763.29 1918.88 755.81 1923.38 747.75 C 1927.88 739.69 1931.71 731.03 1934.94 721.75 C 1938.17 712.47 1940.82 702.32 1942.75 692.06 C 1944.68 681.80 1946.03 670.94 1946.50 660.19 C 1946.97 649.44 1946.60 638.30 1945.56 627.56 C 1944.52 616.82 1942.54 605.66 1940.25 595.75 C 1937.96 585.84 1935.06 576.42 1931.81 568.12 C 1928.56 559.83 1924.98 552.83 1920.75 546.00 C 1916.52 539.17 1911.67 533.01 1906.44 527.12 C 1901.21 521.24 1895.32 515.55 1889.38 510.69 C 1883.43 505.82 1877.36 501.56 1870.75 497.94 C 1864.14 494.31 1857.60 491.38 1849.69 488.94 C 1841.77 486.50 1833.00 484.53 1823.25 483.31 C 1813.50 482.09 1801.70 481.52 1791.19 481.62 C 1780.68 481.73 1769.42 482.56 1760.19 483.94 C 1750.96 485.31 1743.28 487.25 1735.81 489.88 C 1728.34 492.50 1721.95 495.85 1715.38 499.69 C 1708.80 503.52 1702.28 508.03 1696.38 512.88 C 1690.47 517.72 1685.01 522.83 1679.94 528.75 C 1674.86 534.67 1670.26 540.78 1665.94 548.38 C 1661.61 555.97 1657.49 563.83 1654.00 574.31 C 1650.51 584.79 1647.35 596.33 1645.00 611.25 C 1642.65 626.17 1641.04 644.19 1639.88 663.81 C 1638.71 683.44 1638.31 718.14 1638.00 729.00" stroke-width="80.6"/>
+  <path d="M 2123.00 802.00 L 2123.60 802.00" stroke-width="123.1"/>
+</svg>
+  </div>
+
+<script>
+  const TOTAL_MS = 2600;                                  // 一遍写完的时长
+  const GAP_MS = 120;                                     // 单词写完到点句点之间的停顿
+  const PAUSE_MS = 1000;                                  // 两遍之间的停顿
+  const paths = [...document.querySelectorAll('#stage path')];
+  const lens = paths.map(p => p.getTotalLength());
+  const sum = lens.reduce((a, b) => a + b, 0);
+  const scale = (TOTAL_MS - GAP_MS * (paths.length - 1)) / sum;
+
+  paths.forEach((p, i) => {                               // 静态样式：未播放时整条藏起来
+    p.style.strokeDasharray = lens[i];
+    p.style.strokeDashoffset = lens[i];
+  });
+
+  let anims = [];
+
+  function play() {
+    anims.forEach(a => a.cancel());
+    let at = 0;
+    anims = paths.map((p, i) => {
+      const anim = p.animate(
+        [{ strokeDashoffset: lens[i] }, { strokeDashoffset: 0 }],   // 从整条藏起来 -> 全画出来
+        { duration: lens[i] * scale, delay: at, easing: 'linear', fill: 'both' });
+      at += lens[i] * scale + GAP_MS;
+      return anim;
+    });
+  }
+
+  (function loop() {
+    play();
+    setTimeout(loop, TOTAL_MS + PAUSE_MS);                // 循环播放
+  })();
+</script>
+</body>
+</html>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/profile.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Liton</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Walking-into-that-night"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://www.zhihu.com/people/qq123456-40-70" target="_blank" title="Zhihu"><i class="zhihu-icon" style="color: #EC5D85;"></i></a><a class="social-icon" href="https://space.bilibili.com/478562431" target="_blank" title="Bilibili"><i class="bilibili-icon" style="color: #EC5D85;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/19/latex-document-demo/" title="LaTeX 完整文档示例">LaTeX 完整文档示例</a><time datetime="2026-09-19T07:34:18.000Z" title="发表于 2026-09-19 15:34:18">2026-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/16/hello-world/" title="Hello World">Hello World</a><time datetime="2026-09-16T07:52:04.291Z" title="发表于 2026-09-16 15:52:04">2026-09-16</time></div></div></div></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">2</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-09-20T19:36:04.843Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Liton</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><script src="/js/tw_cn.js?v=5.7.0"></script><div class="js-pjax"></div><script src="/js/custom.js?v=6"></script><script src="/js/latex.js?v=3"></script><script src="/js/heatmap.js?v=1"></script><script src="/js/hero-hello.js?v=1"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="Type to search..." type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>

@@ -168,3 +168,20 @@
   opacity: 1 !important;
   transform: none !important;
 }
+
+/* ---------- 首页大标题位置的手写动画 ---------- */
+
+.hero-hello {
+  width: min(78vw, 620px);
+  margin: 0 auto 10px;
+}
+
+.hero-hello svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  /* 原文件是深灰描边，首页大图是暗色照片，改成白色才看得见 */
+  stroke: #fff;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .35));
+}
