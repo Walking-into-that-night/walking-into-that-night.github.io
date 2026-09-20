@@ -28,22 +28,7 @@
   }
 })();
 
-/* ---------- 2. 侧边栏"网站信息"卡片：加一个博客统计入口（所有页面生效） ---------- */
-
-(function () {
-  var webinfo = document.querySelector('.card-webinfo .webinfo')
-  if (!webinfo) return
-  if (webinfo.querySelector('.stats-entry')) return // 防止重复插入
-
-  var item = document.createElement('div')
-  item.className = 'webinfo-item stats-entry'
-  item.innerHTML =
-    '<div class="item-name">热力图 :</div>' +
-    '<div class="item-count"><a href="/stats/" title="查看博客热力图">查看 →</a></div>'
-  webinfo.appendChild(item)
-})();
-
-/* ---------- 3. 首页：常用工具模块 ---------- */
+/* ---------- 2. 首页：常用工具模块 ---------- */
 
 (function () {
   // 只在首页生效（归档页、文章页等一律跳过）
@@ -71,7 +56,7 @@
   posts.insertAdjacentHTML('afterbegin', html)
 })();
 
-/* ---------- 4. 导航栏左上角：站点名改成带图标的"首页" ---------- */
+/* ---------- 3. 导航栏左上角：站点名改成带图标的"首页" ---------- */
 /* 注意只改导航栏这一处。首屏大标题和浏览器标签页用的是 config.title，
    改了会把它们也一起变掉，所以这里用脚本单独处理。 */
 

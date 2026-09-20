@@ -1,13 +1,52 @@
 /* ==============================
    博客热力图
    读取 /heatmap-data.json，用 ECharts 画出"每天发表几篇文章"的日历热力图
-   只在本页存在 #heatmapChart 时运行
+
+   两种用法：
+     1. 页面里自己写了 <div id="heatmapChart">（例如 /stats/），直接画进去
+     2. 归档页：自动在 #archive 最前面建一个卡片容器并画进去
+   其他页面会立刻退出，什么都不做。
+
    参考 hexo-graph 的 lib/charts/heatmap_chart.js 改写
    ============================== */
 
 (function () {
+  var ECHARTS_URL = 'https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js'
+
+  // 优先用页面里已有的容器；没有的话，如果这是归档页就在文章树上方建一个
   var chartDom = document.getElementById('heatmapChart')
-  if (!chartDom || typeof echarts === 'undefined') return
+  if (!chartDom) chartDom = createOnArchivePage()
+  if (!chartDom) return
+
+  function createOnArchivePage () {
+    var archive = document.getElementById('archive')
+    if (!archive) return null
+
+    var card = document.createElement('div')
+    card.className = 'heatmap-card'
+
+    var box = document.createElement('div')
+    box.id = 'heatmapChart'
+    box.style.cssText = 'width:100%;height:220px;overflow-x:auto;overflow-y:hidden'
+
+    card.appendChild(box)
+    archive.insertBefore(card, archive.firstChild)   // 插到"全部文章 - N"上面
+    return box
+  }
+
+  function ensureEcharts () {
+    if (window.echarts) return Promise.resolve()
+    if (!window.__echartsLoading) {
+      window.__echartsLoading = new Promise(function (resolve, reject) {
+        var s = document.createElement('script')
+        s.src = ECHARTS_URL
+        s.onload = resolve
+        s.onerror = function () { reject(new Error('ECharts 加载失败')) }
+        document.head.appendChild(s)
+      })
+    }
+    return window.__echartsLoading
+  }
 
   // 颜色由浅到深，改这里就能换配色
   var COLORS = ['#E8F4FB', '#A3DFF7', '#7BC8E8', '#F7C9B7', '#F5A9A9']
@@ -141,7 +180,8 @@
     return chart
   }
 
-  fetch('/heatmap-data.json')
+  ensureEcharts()
+    .then(function () { return fetch('/heatmap-data.json', { cache: 'no-cache' }) })
     .then(function (res) { return res.json() })
     .then(function (data) {
       if (!data || !data.length) return
