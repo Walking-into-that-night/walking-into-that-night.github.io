@@ -138,3 +138,16 @@
 [data-theme="dark"] .heatmap-card {
   background: rgba(0, 0, 0, 0.45);
 }
+
+/* ---------- 日夜模式 / 简繁切换：已镜像到导航栏，隐藏右下角那两个 ---------- */
+/* 只是隐藏，元素仍在 DOM 里，所以主题的点击逻辑照常工作 */
+
+#rightside #darkmode,
+#rightside #translateLink {
+  display: none;
+}
+
+/* 导航栏右上角的镜像按钮，样式沿用 .site-page */
+#menus .nav-mirror {
+  cursor: pointer;
+}

@@ -66,3 +66,42 @@
     brand.innerHTML = '<i class="fas fa-home" style="margin-right:6px"></i>首页'
   }
 })();
+
+/* ---------- 4. 导航栏右上角：日夜模式 + 简繁切换 ---------- */
+/* 主题的点击逻辑绑定在 #rightside 容器上（main.js 第 738 行），按钮不能直接
+   搬走，否则点击会失效。所以原按钮留在原地、用 CSS 隐藏，这里在导航栏放一份
+   "镜像"，点击时转发给原按钮。 */
+
+(function () {
+  var menuItems = document.querySelector('#menus .menus_items')
+  if (!menuItems) return
+
+  function addMirror (sourceId, iconClass, withLabel) {
+    var source = document.getElementById(sourceId)
+    if (!source) return
+
+    var btn = document.createElement('a')
+    btn.className = 'site-page nav-mirror'
+    btn.href = 'javascript:;'
+    btn.title = source.getAttribute('title') || ''
+
+    function refresh () {
+      // 简繁按钮的文字会在 简 / 繁 之间切换，这里跟着同步
+      var label = withLabel ? source.textContent.trim() : ''
+      btn.innerHTML = '<i class="' + iconClass + '"></i>' +
+        (label ? '<span> ' + label + '</span>' : '')
+    }
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault()
+      source.click()            // 转发给右下角那个真按钮
+      setTimeout(refresh, 60)   // 等主题更新完文字再同步
+    })
+
+    refresh()
+    menuItems.appendChild(btn)
+  }
+
+  addMirror('darkmode', 'fas fa-adjust', false)
+  addMirror('translateLink', 'fas fa-language', true)
+})();
