@@ -58,25 +58,10 @@
 
 /* ---------- 3. 导航栏左上角：站点名改成带图标的"首页" ---------- */
 /* 注意只改导航栏这一处。首屏大标题和浏览器标签页用的是 config.title，
-   改了会把它们也一起变掉，所以这里用脚本单独处理。
-   首页隐藏整块标识（大图上已经有手写动画了），其他页面保留。 */
+   改了会把它们也一起变掉，所以这里用脚本单独处理。 */
 
 (function () {
-  var info = document.getElementById('blog-info')
-  if (!info) return
-
-  // 首页：整块藏掉。
-  // 注意这里必须用 visibility 而不是 display:none ——
-  // #blog-info 带着 flex:1，是"把右边菜单顶到最右"的撑杆，
-  // 用 display:none 会让搜索和菜单一起塌到左边。
-  if (typeof GLOBAL_CONFIG_SITE !== 'undefined' &&
-      GLOBAL_CONFIG_SITE.pageType === 'home') {
-    info.style.visibility = 'hidden'
-    return
-  }
-
-  // 其他页面：换成带图标的"首页"
-  var brand = info.querySelector('.site-name')
+  var brand = document.querySelector('#blog-info .site-name')
   if (brand) {
     brand.innerHTML = '<i class="fas fa-home" style="margin-right:6px"></i>首页'
   }
