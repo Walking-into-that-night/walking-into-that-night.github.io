@@ -34,7 +34,7 @@
 
   // 折射强度。原项目是给 300x200 的小方块调的，这里的元素要宽得多，
   // 直接套用会夸张到变形，所以按比例压一下。想要更明显就调大，0.2~0.8 之间比较合理。
-  var STRENGTH = 0.4
+  var STRENGTH = 0.8
 
   var NS = 'http://www.w3.org/2000/svg'
   var XLINK = 'http://www.w3.org/1999/xlink'
