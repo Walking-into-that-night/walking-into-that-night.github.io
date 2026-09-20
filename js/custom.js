@@ -65,10 +65,13 @@
   var info = document.getElementById('blog-info')
   if (!info) return
 
-  // 首页：整块藏掉
+  // 首页：整块藏掉。
+  // 注意这里必须用 visibility 而不是 display:none ——
+  // #blog-info 带着 flex:1，是"把右边菜单顶到最右"的撑杆，
+  // 用 display:none 会让搜索和菜单一起塌到左边。
   if (typeof GLOBAL_CONFIG_SITE !== 'undefined' &&
       GLOBAL_CONFIG_SITE.pageType === 'home') {
-    info.style.display = 'none'
+    info.style.visibility = 'hidden'
     return
   }
 
