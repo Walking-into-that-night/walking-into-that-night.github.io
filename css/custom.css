@@ -147,7 +147,24 @@
   display: none;
 }
 
-/* 导航栏右上角的镜像按钮，样式沿用 .site-page */
+/* 导航栏右上角的镜像按钮 */
+/* 主题里每个菜单项靠外层 .menus_item 的 padding-left 撑开间距，
+   镜像是直接挂在 .menus_items 下的，所以要自己补上同样的间距 */
 #menus .nav-mirror {
+  margin-left: 14px;
   cursor: pointer;
+}
+
+/* ---------- 右下角：去掉齿轮，把"隐藏侧栏"直接摆出来 ---------- */
+
+/* 齿轮按钮本体不再需要 */
+#rightside #rightside-config {
+  display: none;
+}
+
+/* 原本要点击齿轮才展开的按钮组，改成一直显示 */
+#rightside #rightside-config-hide {
+  height: auto !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
