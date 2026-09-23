@@ -186,3 +186,11 @@
   stroke: #fff;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .35));
 }
+
+/* 站名 H1 会被 hero-hello.js 换成 SVG 动画。这条规则随 <head> 里的 CSS 一起
+   在首次绘制之前就生效，所以不会再先闪一下 "Liton's Blog"。
+   作用域限定在 #site-info 内 —— 归档页的标题是 #page-site-info #site-title，
+   不受影响。 */
+#site-info #site-title {
+  display: none;
+}

@@ -44,7 +44,9 @@
     .catch(function (err) {
       console.error('[hero-hello]', err)
       // 拿不到动画就把标题放回去，至少别让首页空着
-      if (title) title.style.display = ''
+      // 注意用 'block' 而不是 ''：CSS 里有 #site-info #site-title{display:none}，
+      // 清空行内样式挡不住它，必须用行内样式显式覆盖回去
+      if (title) title.style.display = 'block'
       if (holder.parentNode) holder.parentNode.removeChild(holder)
     })
 
