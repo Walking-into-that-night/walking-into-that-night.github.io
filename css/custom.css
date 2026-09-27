@@ -8,7 +8,9 @@
 #recent-posts > .recent-post-item,
 #aside-content .card-widget,
 #footer {
-  background: rgba(255, 255, 255, 0.55) !important;
+  /* 用 background-color 而不是 background：
+     后者是简写属性，会把 footer 的 background-image 一起重置成 none */
+  background-color: rgba(255, 255, 255, 0.55) !important;
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   backdrop-filter: blur(12px) saturate(180%);
 }
@@ -16,7 +18,7 @@
 [data-theme="dark"] #recent-posts > .recent-post-item,
 [data-theme="dark"] #aside-content .card-widget,
 [data-theme="dark"] #footer {
-  background: rgba(0, 0, 0, 0.45) !important;
+  background-color: rgba(0, 0, 0, 0.45) !important;
 }
 
 /* ---------- 自定义社交图标 ---------- */
