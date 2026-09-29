@@ -67,8 +67,11 @@
     // 按各段长度分配时间，长的一笔花的时间也长
     var scale = (TOTAL_MS - GAP_MS * (paths.length - 1)) / sum
 
+    var DOT_MAX = 5     // 路径长度小于此视作“点”（句点）
+
     // 静态样式：未播放时整条藏起来
     paths.forEach(function (p, i) {
+      if (lens[i] < DOT_MAX) { p.style.strokeWidth = '0px'; return }   // 点不走虚线，直接缩没
       p.style.strokeDasharray = lens[i]
       p.style.strokeDashoffset = lens[i]
     })
@@ -79,16 +82,32 @@
       anims.forEach(function (a) { a.cancel() })
       var at = 0
       anims = paths.map(function (p, i) {
-        var anim = p.animate(
-          [{ strokeDashoffset: lens[i] }, { strokeDashoffset: 0 }],
-          {
-            duration: lens[i] * scale,
-            delay: at,
-            easing: 'linear',
-            fill: 'both'
-          }
-        )
-        at += lens[i] * scale + GAP_MS
+        var anim
+        if (lens[i] < DOT_MAX) {
+          // 点：单词写完后轻轻“点”一下，带一点回弹
+          var w = p.getAttribute('stroke-width') || 123.1
+          anim = p.animate(
+            [{ strokeWidth: '0px' }, { strokeWidth: w + 'px' }],
+            {
+              duration: 240,
+              delay: at,
+              easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+              fill: 'both'
+            }
+          )
+          at += 240 + GAP_MS
+        } else {
+          anim = p.animate(
+            [{ strokeDashoffset: lens[i] }, { strokeDashoffset: 0 }],
+            {
+              duration: lens[i] * scale,
+              delay: at,
+              easing: 'linear',
+              fill: 'both'
+            }
+          )
+          at += lens[i] * scale + GAP_MS
+        }
         return anim
       })
     }
