@@ -234,6 +234,12 @@
   background: rgba(73, 177, 245, .15);
 }
 
+/* go-up 因 overflow:visible 放走了主题 .btn-effects 停在左侧的扫光伪元素
+   （透明→0.2白→透明渐变），在深色背景上显成一个灰色方块，直接关掉 */
+#rightside #go-up::before {
+  display: none;
+}
+
 #go-up .scroll-progress-ring {
   position: absolute;
   top: 0;
