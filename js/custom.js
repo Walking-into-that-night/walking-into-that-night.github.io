@@ -67,10 +67,10 @@
   }
 })();
 
-/* ---------- 4. 导航栏右上角：日夜模式 + 简繁切换 ---------- */
+/* ---------- 4. 导航栏右上角：简繁切换 ---------- */
 /* 主题的点击逻辑绑定在 #rightside 容器上（main.js 第 738 行），按钮不能直接
    搬走，否则点击会失效。所以原按钮留在原地、用 CSS 隐藏，这里在导航栏放一份
-   "镜像"，点击时转发给原按钮。 */
+   "镜像"，点击时转发给原按钮。日夜切换镜像已删：站点强制夜间模式。 */
 
 (function () {
   var menuItems = document.querySelector('#menus .menus_items')
@@ -102,6 +102,59 @@
     menuItems.appendChild(btn)
   }
 
-  addMirror('darkmode', 'fas fa-adjust', false)
   addMirror('translateLink', 'fas fa-language', true)
+})();
+
+/* ---------- 回到顶部按钮的滚动进度圆环 ---------- */
+;(function () {
+  var RING_SIZE = 35
+  var CENTER = 17.5
+  var RADIUS = 16 // 半径 + 半线宽(1.5) = 17.5，弧线外缘正好贴齐 35px 按钮边缘
+  var CIRC = 2 * Math.PI * RADIUS // 圆环周长，进度 0% 时弧长为 0
+
+  function buildRing (btn) {
+    var old = btn.querySelector('.scroll-progress-ring')
+    if (old) return old.querySelector('.ring-progress')
+
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    svg.setAttribute('class', 'scroll-progress-ring')
+    svg.setAttribute('viewBox', '0 0 ' + RING_SIZE + ' ' + RING_SIZE)
+
+    var track = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+    track.setAttribute('class', 'ring-track')
+    var bar = track.cloneNode(false)
+    bar.setAttribute('class', 'ring-progress')
+    ;[track, bar].forEach(function (c) {
+      c.setAttribute('cx', CENTER)
+      c.setAttribute('cy', CENTER)
+      c.setAttribute('r', RADIUS)
+      svg.appendChild(c)
+    })
+
+    bar.style.strokeDasharray = CIRC.toFixed(2)
+    bar.style.strokeDashoffset = CIRC.toFixed(2)
+    btn.appendChild(svg)
+    return bar
+  }
+
+  var btn = document.getElementById('go-up')
+  if (!btn) return
+  var bar = buildRing(btn)
+  var ticking = false
+
+  function update () {
+    ticking = false
+    var max = document.documentElement.scrollHeight - window.innerHeight
+    var p = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0
+    bar.style.strokeDashoffset = (CIRC * (1 - p)).toFixed(2)
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      ticking = true
+      requestAnimationFrame(update)
+    }
+  }, { passive: true })
+  window.addEventListener('resize', update)
+  update()
 })();

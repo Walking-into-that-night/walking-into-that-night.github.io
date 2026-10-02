@@ -198,3 +198,67 @@
 #site-info #site-title {
   display: none;
 }
+
+/* ---------- 右下角按钮：空心圆环 + 回到顶部滚动进度圆环 ---------- */
+
+/* 空心圆环：透明底 + 圆形描边，图标同色，悬停时填充。
+   站点已强制夜间模式，配色按深色背景调；蓝与进度弧同色 */
+#rightside > div > button,
+#rightside > div > a {
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid #49b1f5;
+  /* 主题设的 line-height:35px 是按无边框算的，border-box 下扣掉 4px 才居中 */
+  line-height: 31px;
+  color: #49b1f5;
+}
+
+#rightside > div > button:hover,
+#rightside > div > a:hover {
+  background-color: #49b1f5;
+  color: #fff;
+}
+
+/* SVG 圆环挂在 #go-up 上，比按钮大一圈。
+   主题用 #rightside > div > button（1 ID + 2 元素）给按钮设了 overflow:hidden，
+   单个 #go-up 选择器优先级不够，必须用双 ID 压过它 */
+#rightside #go-up {
+  position: relative;
+  overflow: visible;
+  /* go-up 不走空心描边：只留中心图标和外圈进度弧（底轨+蓝弧就是它的环） */
+  background: transparent;
+  border: none;
+}
+
+#rightside #go-up:hover {
+  background: rgba(73, 177, 245, .15);
+}
+
+#go-up .scroll-progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* 外径与按钮一致（35px），弧线贴着按钮边缘走，和上面的空心环一样大 */
+  width: 35px;
+  height: 35px;
+  overflow: visible;
+  pointer-events: none;
+  /* 起点转到 12 点钟方向，顺时针生长 */
+  transform: rotate(-90deg);
+}
+
+#go-up .scroll-progress-ring circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+/* 底环：半透明灰，明暗模式下都可见 */
+#go-up .scroll-progress-ring .ring-track {
+  stroke: rgba(127, 127, 127, .35);
+}
+
+/* 进度弧：站点主题蓝 */
+#go-up .scroll-progress-ring .ring-progress {
+  stroke: #49b1f5;
+  stroke-linecap: round;
+}
