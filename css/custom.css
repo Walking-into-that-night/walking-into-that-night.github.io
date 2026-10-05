@@ -7,10 +7,7 @@
 /* ---------- 毛玻璃卡片效果 ---------- */
 #recent-posts .recent-post-item,
 #aside-content .card-widget,
-.my-tools,
-#footer {
-  /* 用 background-color 而不是 background：
-     后者是简写属性，会把 footer 的 background-image 一起重置成 none */
+.my-tools {
   background-color: rgba(255, 255, 255, 0.55) !important;
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   backdrop-filter: blur(12px) saturate(180%);
@@ -18,9 +15,53 @@
 
 [data-theme="dark"] #recent-posts .recent-post-item,
 [data-theme="dark"] #aside-content .card-widget,
-[data-theme="dark"] .my-tools,
-[data-theme="dark"] #footer {
+[data-theme="dark"] .my-tools {
   background-color: rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ---------- 站点字体：简繁两套 ---------- */
+/* 默认正文字体在主题配置 font.font_family 里设为 FZFW（简体）优先；
+   这里声明字体文件本身，并在简繁切换到繁体时整站换用 FZCUJLK。
+   字体为 woff2 格式（原 TTF 约 20MB，woff2 压到约 8.5MB，原件在博客根目录 font-src/），
+   font-display:swap 让加载期间先用后备字体显示，避免文字消失 */
+
+@font-face {
+  font-family: 'FZFWZhuZiAOldMinchoE';
+  src: url('/css/FZFWZhuZiAOldMinchoE.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FZCUJLK';
+  src: url('/css/FZCUJLK.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* 简繁切换（tw_cn.js）切到繁体时会把 html 的 lang 置为 zh-TW，
+   用属性选择器压过主题的 body 字体栈，整站换用繁体字体 */
+html[lang='zh-TW'] body {
+  font-family: 'FZCUJLK', 'FZFWZhuZiAOldMinchoE', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Lato, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* ---------- 一图流：头图和页脚都透明，全站只露 #web_bg 一张背景 ---------- */
+/* 参照 yyyzyyyz 博客「图片透明度修改」的方案 */
+
+/* 头图透明：首页 banner、文章封面、各页 top_img 的图都不再单独显示 */
+#page-header {
+  background: transparent !important;
+}
+
+/* 头图上的遮罩层透明。主题的遮罩颜色走 --mark-bg 变量（夜间模式会加深），
+   这里直接把伪元素置透明，明暗两种模式一起覆盖 */
+#page-header:not(.not-top-img):before {
+  background-color: transparent !important;
+}
+
+/* 页脚透明，连同遮罩伪元素一起置空。
+   footer_img 已在主题配置中置 false，这里的 :before 只是兜底 */
+#footer,
+#footer:before {
+  background: transparent !important;
 }
 
 /* ---------- 自定义社交图标 ---------- */
