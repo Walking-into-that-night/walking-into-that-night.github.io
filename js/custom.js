@@ -39,8 +39,7 @@
 
   // 加工具
   var tools = [
-    { name: 'DeepSeek Platform', url: 'https://platform.deepseek.com/usage', icon: 'fas fa-wallet' },
-    { name: '树洞', url: 'https://new-t.github.io/?###', icon: 'fas fa-tree' }
+    { name: 'DeepSeek Platform', url: 'https://platform.deepseek.com/usage', icon: 'fas fa-wallet' }
   ]
 
   var title = '常用' // 模块标题
