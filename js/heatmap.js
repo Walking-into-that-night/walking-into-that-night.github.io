@@ -96,6 +96,8 @@
     var chart = echarts.init(chartDom, currentTheme())
 
     chart.setOption({
+      // ECharts 内置 dark 主题默认给画布铺一层深蓝底，会挡住卡片玻璃，这里改成透明
+      backgroundColor: 'transparent',
       grid: {},
       tooltip: {
         position: 'top',

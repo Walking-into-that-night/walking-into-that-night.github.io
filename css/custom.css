@@ -4,19 +4,206 @@
    在 _config.butterfly.yml 的 inject.head 里通过 <link> 引入
    ============================== */
 
-/* ---------- 毛玻璃卡片效果 ---------- */
-#recent-posts .recent-post-item,
-#aside-content .card-widget,
-.my-tools {
-  background-color: rgba(255, 255, 255, 0.55) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  backdrop-filter: blur(12px) saturate(180%);
+/* ---------- 液态玻璃（Liquid Glass）卡片 ---------- */
+/* 由毛玻璃升级：透明玻璃基底 + 镜面高光 + 渐变描边 + 雾面颗粒。
+   纯 CSS 实现，不依赖 SVG 位移滤镜：`backdrop-filter: url()` 只有 Chromium/Edge 生效，
+   Safari / Firefox 会静默退化成普通模糊；逐元素生成 canvas 位移贴图在滚动中还要反复重采样。
+   之前那版液体玻璃走的正是这条路，后来整体回撤，所以这次不再引入。
+   分层（自下而上）：
+   1. backdrop-filter  —— 模糊并提亮背后的 sand 背景，这是「玻璃」的基底
+   2. background-color —— 半透明白色染色，让玻璃比背景更亮一档
+   3. background-image —— 顶缘反光、斜向扫光、左上光斑、右下蓝色反光、雾面颗粒
+   4. box-shadow       —— 上缘镜面线 + 左右色散 + 内部冷雾 + 底部厚度 + 外投影
+   5. ::before         —— 1px 渐变描边环（玻璃磨边），两端亮中间暗 */
+
+:root {
+  --lg-radius: 18px;
+  --lg-blur: 20px;
+  --lg-tint: rgba(255, 255, 255, 0.075);
+  --lg-rim: rgba(255, 255, 255, 0.10);
+  --lg-rim-hover: rgba(255, 255, 255, 0.22);
+  /* 雾面颗粒：feTurbulence 只光栅化一次，160px 平铺，成本约等于一张小图，用来去掉塑料感 */
+  --lg-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  /* 顶缘反光：贴着上边缘的一道窄高光，迅速淡出，模拟玻璃上沿的镜面反射 */
+  --lg-top-edge: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.04) 4%,
+      rgba(255, 255, 255, 0) 10%);
+  /* 斜向扫光：从左上掠过的一道高光，是「液态」感的主要来源。
+     宽度做成 200%，悬停时横向滑过整块玻璃（见下面的 background-position 过渡） */
+  --lg-sheen: linear-gradient(116deg,
+      rgba(255, 255, 255, 0.24) 0%,
+      rgba(255, 255, 255, 0.08) 15%,
+      rgba(255, 255, 255, 0) 34%,
+      rgba(255, 255, 255, 0) 60%,
+      rgba(255, 255, 255, 0.10) 82%,
+      rgba(255, 255, 255, 0.02) 100%);
+  /* 左上角光斑：像玻璃边缘聚起的一小汪光，最出「湿润」感 */
+  --lg-corner: radial-gradient(32% 46% at 1% -2%,
+      rgba(255, 255, 255, 0.34),
+      rgba(255, 255, 255, 0) 68%);
+  /* 左上角顶光：模拟光源从上方打下来 */
+  --lg-top-light: radial-gradient(100% 58% at 12% -18%,
+      rgba(255, 255, 255, 0.20),
+      rgba(255, 255, 255, 0) 62%);
+  /* 右下角蓝色反光：和站点主题蓝呼应，让玻璃有厚度 */
+  --lg-bottom-tint: radial-gradient(95% 70% at 84% 114%,
+      rgba(73, 177, 245, 0.20),
+      rgba(73, 177, 245, 0) 62%);
+  --lg-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.70),
+    inset 0 3px 12px -6px rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.12),
+    inset 1px 0 0 rgba(255, 140, 180, 0.10),
+    inset -1px 0 0 rgba(120, 210, 255, 0.10),
+    inset 0 0 26px rgba(73, 177, 245, 0.06),
+    inset 0 -26px 40px -26px rgba(0, 0, 0, 0.65),
+    0 22px 48px -16px rgba(0, 0, 0, 0.55),
+    0 3px 10px rgba(0, 0, 0, 0.28);
+  --lg-shadow-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 3px 12px -6px rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.16),
+    inset 1px 0 0 rgba(255, 140, 180, 0.14),
+    inset -1px 0 0 rgba(120, 210, 255, 0.14),
+    inset 0 0 30px rgba(73, 177, 245, 0.09),
+    inset 0 -26px 40px -26px rgba(0, 0, 0, 0.65),
+    0 26px 58px -18px rgba(0, 0, 0, 0.65),
+    0 3px 10px rgba(0, 0, 0, 0.30),
+    0 0 34px rgba(73, 177, 245, 0.12);
 }
 
-[data-theme="dark"] #recent-posts .recent-post-item,
-[data-theme="dark"] #aside-content .card-widget,
-[data-theme="dark"] .my-tools {
-  background-color: rgba(0, 0, 0, 0.45) !important;
+/* ---------- 1. 玻璃基底：文章卡 / 侧栏卡 / 工具卡 / 热力图卡 ---------- */
+#recent-posts .recent-post-item,
+#aside-content .card-widget,
+.my-tools,
+.heatmap-card {
+  position: relative;
+  border-radius: var(--lg-radius) !important;
+  border: 1px solid var(--lg-rim);
+  background-color: var(--lg-tint) !important;
+  background-image: var(--lg-top-edge), var(--lg-sheen), var(--lg-corner), var(--lg-top-light), var(--lg-bottom-tint), var(--lg-noise);
+  /* 高光用固定像素尺寸（不用百分比），否则纵向很长的卡片会把光斑一起拉长成一大片灰 */
+  background-size: 100% 120px, 200% 100%, 420px 320px, 900px 480px, 700px 420px, 160px 160px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-position: 0 0, 0% 0%, 0 0, 0 0, right -70px bottom -110px, 0 0;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(185%) brightness(1.22) contrast(1.03);
+  backdrop-filter: blur(var(--lg-blur)) saturate(185%) brightness(1.22) contrast(1.03);
+  box-shadow: var(--lg-shadow);
+  transition: background-position 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease,
+              background-color 0.35s ease,
+              transform 0.3s ease;
+}
+
+/* ---------- 2. 渐变高光描边：两端亮、中间暗的一圈，像玻璃磨出来的边 ---------- */
+/* 用 mask 把「只填充 1px 边框环」的区域抠出来，比 border-image 更能贴合圆角 */
+#recent-posts .recent-post-item::before,
+#aside-content .card-widget::before,
+.my-tools::before,
+.heatmap-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.60) 0%,
+      rgba(255, 255, 255, 0.12) 18%,
+      rgba(255, 255, 255, 0.03) 46%,
+      rgba(255, 255, 255, 0.08) 72%,
+      rgba(255, 255, 255, 0.45) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------- 3. 悬停：扫光横移 + 玻璃上浮 + 边缘更亮 ---------- */
+#recent-posts .recent-post-item:hover,
+#aside-content .card-widget:hover,
+.my-tools:hover,
+.heatmap-card:hover {
+  border-color: var(--lg-rim-hover);
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  background-position: 0 0, 100% 0%, 0 0, 0 0, right -70px bottom -110px, 0 0;
+  box-shadow: var(--lg-shadow-hover);
+}
+
+#recent-posts .recent-post-item:hover,
+.my-tools:hover,
+.heatmap-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ---------- 4. 正文卡片（文章页 / 归档页 / 友链页那一大块） ---------- */
+/* 面积是普通卡片的十几倍，染色和提亮必须压小，否则整页会变成一大片灰。
+   只保留顶缘反光、左上光斑、细扫光和磨边，读起来仍是深色纸面 */
+.layout > div:first-child:not(.nc) {
+  position: relative;
+  border-radius: var(--lg-radius) !important;
+  border: 1px solid var(--lg-rim);
+  /* 压暗而不是提亮：正文要保证长文阅读的对比度，玻璃感交给描边和顶部反光 */
+  background-color: rgba(10, 14, 20, 0.62) !important;
+  background-image: var(--lg-top-edge), var(--lg-corner), var(--lg-noise);
+  background-size: 100% 100px, 340px 260px, 160px 160px;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-position: 0 0, 0 0, 0 0;
+  -webkit-backdrop-filter: blur(12px) saturate(160%) brightness(1.05) contrast(1.02);
+  backdrop-filter: blur(12px) saturate(160%) brightness(1.05) contrast(1.02);
+  box-shadow: var(--lg-shadow);
+}
+
+.layout > div:first-child:not(.nc)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.50) 0%,
+      rgba(255, 255, 255, 0.10) 18%,
+      rgba(255, 255, 255, 0.03) 46%,
+      rgba(255, 255, 255, 0.07) 72%,
+      rgba(255, 255, 255, 0.36) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* 不支持 backdrop-filter 的浏览器：退化成不透明的深色卡片，保证文字可读 */
+@supports not (backdrop-filter: blur(1px)) {
+  #recent-posts .recent-post-item,
+  #aside-content .card-widget,
+  .my-tools,
+  .heatmap-card {
+    background-color: rgba(16, 20, 28, 0.92) !important;
+  }
+}
+
+/* 系统开启「降低透明度」时，直接给实色底，不再透出背景 */
+@media (prefers-reduced-transparency: reduce) {
+  #recent-posts .recent-post-item,
+  #aside-content .card-widget,
+  .my-tools,
+  .heatmap-card {
+    background-color: #0b0f14 !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* 手机端降低模糊半径，控制 backdrop-filter 的绘制开销 */
+@media (max-width: 768px) {
+  :root {
+    --lg-blur: 16px;
+  }
 }
 
 /* ---------- 站点字体：简繁两套 ---------- */
@@ -88,16 +275,43 @@ html[lang='zh-TW'] body {
 /* ---------- 搜索弹层：做成和侧边栏卡片一致的样子 ---------- */
 
 .search-dialog {
-  background: rgba(255, 255, 255, 0.85);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  backdrop-filter: blur(12px) saturate(180%);
-  border-radius: 8px;
-  box-shadow: var(--card-box-shadow);
+  background-color: rgba(18, 22, 30, 0.52) !important;
+  background-image: var(--lg-top-edge), var(--lg-sheen), var(--lg-corner), var(--lg-top-light), var(--lg-noise);
+  background-size: 100% 120px, 200% 100%, 420px 320px, 900px 480px, 160px 160px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-position: 0 0, 0% 0%, 0 0, 0 0, 0 0;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(1.18) contrast(1.03);
+  backdrop-filter: blur(28px) saturate(180%) brightness(1.18) contrast(1.03);
+  border: 1px solid var(--lg-rim);
+  border-radius: 20px;
+  box-shadow: var(--lg-shadow);
+}
+
+/* 与卡片同一圈渐变描边 */
+.search-dialog::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.60) 0%,
+      rgba(255, 255, 255, 0.12) 18%,
+      rgba(255, 255, 255, 0.03) 46%,
+      rgba(255, 255, 255, 0.08) 72%,
+      rgba(255, 255, 255, 0.45) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 [data-theme="dark"] .search-dialog {
-  background: rgba(0, 0, 0, 0.75);
+  background-color: rgba(18, 22, 30, 0.52) !important;
 }
+
 
 /* 顶部一行：标题 + 关闭按钮 */
 .search-nav {
@@ -173,15 +387,6 @@ html[lang='zh-TW'] body {
 .heatmap-card {
   margin-bottom: 20px;
   padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  backdrop-filter: blur(12px) saturate(180%);
-  border-radius: 8px;
-  box-shadow: var(--card-box-shadow);
-}
-
-[data-theme="dark"] .heatmap-card {
-  background: rgba(0, 0, 0, 0.45);
 }
 
 /* ---------- 日夜模式 / 简繁切换：已镜像到导航栏，隐藏右下角那两个 ---------- */
@@ -308,4 +513,22 @@ html[lang='zh-TW'] body {
 #go-up .scroll-progress-ring .ring-progress {
   stroke: #49b1f5;
   stroke-linecap: round;
+}
+
+/* ---------- 导航栏：液态玻璃 ---------- */
+/* 主题在深色模式下给 #nav 的底色是 alpha(#121212,.8)，这里换成更透的玻璃染色，
+   加顶部高光线和底部阴影，让滚动后浮起的导航条也像一块玻璃 */
+#page-header.nav-fixed > #nav,
+#page-header.not-top-img > #nav {
+  /* 上亮下暗的染色，配合顶缘高光线，滚动后浮起的导航条也像一块玻璃 */
+  background: linear-gradient(180deg,
+      rgba(30, 38, 50, 0.62) 0%,
+      rgba(12, 16, 22, 0.48) 100%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(170%) brightness(1.12);
+  backdrop-filter: blur(18px) saturate(170%) brightness(1.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(73, 177, 245, 0.08),
+    0 10px 30px -14px rgba(0, 0, 0, 0.75) !important;
 }
